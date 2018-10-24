@@ -1,0 +1,16 @@
+<section class="book-list">
+  <ul class="grid">
+    <%= for book <- @books do %>
+      <li class="grid-item">
+        <div class="book book-small">
+          <%= link to: book_path(@conn, :show, book.id, date: to_string(Date.utc_today())) do %>
+            <img class="book__image" src="<%= book.image_url %>">
+            <h2 class="book__title"><%= book.title %></h2>
+          <% end %>
+          <span class="book__price"><%= book.price %></span>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <%= link "My Github profile", to: "https://github.com/NadiaGubernator" %>
+</section>
