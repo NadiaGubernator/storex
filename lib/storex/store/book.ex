@@ -13,22 +13,11 @@ defmodule Storex.Store.Book do
   end
 
   @doc false
-  @max_price 9999
 
   def changeset(book, attrs) do
     book
     |> cast(attrs, [:title, :description, :price, :image_url])
     |> validate_required([:title, :description, :price, :image_url])
-    |> validate_max_price()
-  end
-
-  defp validate_max_price(changeset) do
-    price = get_change(changeset, :price)
-
-    if Decimal.cmp(price, @max_price) == :gt do
-      add_error(changeset, :price, "Price is not valid")
-    end
-
-    changeset
+    |> validate_number(:price, less_than: 100.00)
   end
 end
